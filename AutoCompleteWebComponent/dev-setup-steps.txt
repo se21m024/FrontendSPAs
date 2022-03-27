@@ -1,0 +1,19 @@
+cd root dir
+>> npm init
+-> a package.json is created
+
+>> npm i lit-element
+
+>> npm install --save-dev owc-dev-server
+See: http://dplatz.de/blog/2019/es6-bare-imports.html
+Open Web Components (OWC)
+Open Web Components offer a simple dev-server that does nothing more than rewrite the bar module imports to relative imports.
+
+and see: https://www.npmjs.com/package/owc-dev-server
+
+add this script to the package.json:
+"start": "owc-dev-server"
+
+start website via
+>> npm run start
+
