@@ -1,53 +1,101 @@
-const template = document.createElement('template');
-template.innerHTML = `
-    <div>
-        <label for="auto-complete-text-input">Auto complete Field:</label><br>
-        <input type="text" id="auto-complete-text-input" name="auto-complete-text-input">
-    </div>
-`;
+import { LitElement, html } from 'lit-element/lit-element.js';
 
-export class AutoCompleteTextInput extends HTMLElement {
-
-    static get observedAttributes() {
-        return [ 'title' ];
+class AutoCompleteTextInput extends LitElement {
+  
+    render() {
+    return html`
+        <div>
+            <label>${this.title}</label><br>
+            <input type="text" 
+                id="auto-complete-text-input"
+                name="auto-complete-text-input" 
+                placeholder="Type your country here..."
+                @keyup=${e => this.onInputTextChanged(e.target.value)}>
+            <br/>
+            <button
+                id="auto-complete-suggestion"
+                name="auto-complete-suggestion"
+                @click=${e => this.onSuggestionClick(e.target.innerHTML)}
+                style="visibility:hidden;width:fit-content;height:fit-content">
+        </div>
+    `;
     }
 
     constructor() {
         super();
-        const shadowRoot = this.attachShadow({mode: 'closed'});
-        shadowRoot.appendChild(template.content.cloneNode(true));
+        this.title = 'Default title';
+        this.addEventListener('focusout', this.onFocusout);
     }
 
-    connectedCallback() {
-        console.log('auto-complete-text-input: component added to DOM.');
+    static get properties() {
+        return{
+            title: { type: String },
+            suggestions: { type: Array }
+        };
+    }
 
-        if(!this.title) {
-            this.title = 'Insert Text:';
+    // Emit an event with the current value of the text input
+    // when the web component looses the focus
+    onFocusout() {
+        let currentValue = this.shadowRoot
+            .getElementById("auto-complete-text-input")
+            .value;
+
+        console.log("Emit current input text value: " + currentValue);
+
+        let event = new CustomEvent("current-input-value", {
+            detail: {
+              message: currentValue}});
+      
+        this.dispatchEvent(event);
+    }
+
+    // Text of the text input changed
+    onInputTextChanged(text) {
+        console.log("Text changed to: " + text);
+        
+        // Hide suggestion box
+        if(text.length < 1) {
+            this.shadowRoot
+                .getElementById("auto-complete-suggestion")
+                .style
+                .visibility = 'hidden';
+            return;
         }
+
+        // Search for match
+        let suggestion = this.suggestions.find(x => 
+            x.toLowerCase().startsWith(text.toLowerCase()));
+
+        console.log("New suggestion: " + suggestion);
+
+        // Hide suggestion box if no match found
+        if(suggestion == undefined || suggestion.length < 1) {
+            this.shadowRoot
+                .getElementById("auto-complete-suggestion")
+                .style
+                .visibility = 'hidden';
+            return;
+        }
+
+        // Show suggestion box if match found
+        this.shadowRoot
+                .getElementById("auto-complete-suggestion")
+                .innerHTML = suggestion;
+
+        this.shadowRoot
+            .getElementById("auto-complete-suggestion")
+            .style.visibility = 'visible';
     }
 
-    // Attention! Attributes are always string, if you want something else, you must parse it.
-    get title() {
-        console.log('auto-complete-text-input: attribte <title>: return value <' + this.getAttribute('title') + '>.');
-        return +this.getAttribute('title');
+    // Write suggestion clicked back into text input
+    onSuggestionClick(suggestion) {
+        console.log("Suggestion box was clicked.");
+        this.shadowRoot
+            .getElementById("auto-complete-text-input")
+            .value = suggestion;
     }
-
-    // if you set the property in this class, you must sync them with the attribute
-    set title(value) {
-        console.log('auto-complete-text-input: attribte <title>: set value to <' + value + '>.');
-        this.setAttribute('title', value);
-    }
-
-    attributeChangedCallback(name, oldVal, newVal) {
-        if (oldVal !== newVal) {
-          switch(name) {
-              case 'title':
-                  console.log('auto-complete-text-input: attribte <title>: value changed from <' + oldVal + '> to <' + newVal + '>.');
-                  this.title = newVal;
-                  break;
-         }
-       }
-     }
 }
 
-window.customElements.define('my-auto-complete-text-input', AutoCompleteTextInput);
+// Component name
+customElements.define('my-auto-complete-text-input', AutoCompleteTextInput); 
