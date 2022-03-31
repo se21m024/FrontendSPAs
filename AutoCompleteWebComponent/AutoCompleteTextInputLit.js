@@ -12,11 +12,11 @@ class AutoCompleteTextInput extends LitElement {
                 placeholder="Type your country here..."
                 @keyup=${e => this.onInputTextChanged(e.target.value)}>
             <br/>
-            <input type="hidden"
+            <button
                 id="auto-complete-suggestion"
                 name="auto-complete-suggestion"
-                @click=${e => this.onSuggestionClick(e.target.value)}
-                readonly>
+                @click=${e => this.onSuggestionClick(e.target.innerHTML)}
+                style="visibility:hidden;width:fit-content;height:fit-content">
         </div>
     `;
     }
@@ -34,47 +34,66 @@ class AutoCompleteTextInput extends LitElement {
         };
     }
 
-    onFocusout(e) {
-        console.log("Auto complete text input lost focus.")
+    // Emit an event with the current value of the text input
+    // when the web component looses the focus
+    onFocusout() {
+        let currentValue = this.shadowRoot
+            .getElementById("auto-complete-text-input")
+            .value;
+
+        console.log("Emit current input text value: " + currentValue);
+
+        let event = new CustomEvent("current-input-value", {
+            detail: {
+              message: currentValue}});
+      
+        this.dispatchEvent(event);
     }
 
+    // Text of the text input changed
     onInputTextChanged(text) {
-        console.log("Text changed to: " + text)
+        console.log("Text changed to: " + text);
         
         // Hide suggestion box
         if(text.length < 1) {
             this.shadowRoot
                 .getElementById("auto-complete-suggestion")
-                .setAttribute("type", "hidden")
-            return
+                .style
+                .visibility = 'hidden';
+            return;
         }
 
         // Search for match
-        let suggestion = this.suggestions.find(x => x.toLowerCase().startsWith(text.toLowerCase()))
-        console.log("New suggestion: " + suggestion)
+        let suggestion = this.suggestions.find(x => 
+            x.toLowerCase().startsWith(text.toLowerCase()));
+
+        console.log("New suggestion: " + suggestion);
 
         // Hide suggestion box if no match found
         if(suggestion == undefined || suggestion.length < 1) {
             this.shadowRoot
                 .getElementById("auto-complete-suggestion")
-                .setAttribute("type", "hidden")
-            return
+                .style
+                .visibility = 'hidden';
+            return;
         }
 
         // Show suggestion box if match found
         this.shadowRoot
-            .getElementById("auto-complete-suggestion")
-            .setAttribute("placeholder", suggestion)
+                .getElementById("auto-complete-suggestion")
+                .innerHTML = suggestion;
+
         this.shadowRoot
             .getElementById("auto-complete-suggestion")
-            .setAttribute("type", "text")
+            .style.visibility = 'visible';
     }
 
+    // Write suggestion clicked back into text input
     onSuggestionClick(suggestion) {
-        console.log("Suggestion box was clicked.")
+        console.log("Suggestion box was clicked.");
         this.shadowRoot
             .getElementById("auto-complete-text-input")
-            .setAttribute("value", suggestion)
+            .value = suggestion;
     }
 }
 
