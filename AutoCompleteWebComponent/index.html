@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+    
     <head>
-        <!--<meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
         <title>Web Component Demo</title>
         <script type="module" src="./AutoCompleteTextInputLit.js"></script>
     </head>
+
     <body>
         <p>Web Component Demo Site</p>
-        <my-auto-complete-text-input></my-auto-complete-text-input>
-        <p>Footer</p>
+        <my-auto-complete-text-input id="auto-complete-ti" title="City Search"></my-auto-complete-text-input>
+        <p>Student: se21m024</p>
     </body>
+
+    <script>
+        fetch("./countries.json")
+        .then(response => {
+        return response.json();
+        })
+        .then(jsondata => document.getElementById("auto-complete-ti").suggestions = jsondata);
+    </script>
+
 </html>
