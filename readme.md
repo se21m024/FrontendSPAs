@@ -19,7 +19,7 @@ https://github.com/se21m024/FrontendSPAs
 
 # Web Component
 
-A web component [AutoCompleteTextInput](./AutoCompleteWebComponent/autoCompleteTextInput.js) was created using the JavaScript library 'Lit' (https://lit.dev/).<br>
+A web component [AutoCompleteTextInput](https://github.com/se21m024/FrontendSPAs/blob/main/AutoCompleteWebComponent/AutoCompleteTextInput.js) was created using the JavaScript library 'Lit' (https://lit.dev/).<br>
 
 ![WebComponent-1](./Screenshots/WebComponent-1.png)
 
@@ -37,7 +37,7 @@ A Vue app was created that uses the web component. The file <i>autoCompleteTextI
 
 ![Vue-2](./Screenshots/Vue-2.png)
 
-The integration of the web component can be seen in the [Home.vue](./VueApp/VueApp/src/components/Home.vue) file.
+The integration of the web component can be seen in the [Home.vue](https://github.com/se21m024/FrontendSPAs/blob/main/VueApp/VueApp/src/components/Home.vue) file.
 
 ![Vue-3](./Screenshots/Vue-3.png)
 
@@ -49,6 +49,6 @@ A React app was created that uses the web component. The file <i>autoCompleteTex
 
 ![React-2](./Screenshots/React-2.png)
 
-The integration of the web component can be seen in the [App.js](./FrontendSPAs/ReactApp\react-app/src/App.js) file.
+The integration of the web component can be seen in the [App.js](https://github.com/se21m024/FrontendSPAs/blob/main/ReactApp/react-app/src/App.js) file.
 
 ![React-3](./Screenshots/React-3.png)
