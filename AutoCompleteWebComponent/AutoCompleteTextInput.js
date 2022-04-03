@@ -51,6 +51,7 @@ class AutoCompleteTextInput extends LitElement {
         });
 
         this.dispatchEvent(event);
+        document.dispatchEvent(event);
     }
 
     // Text of the text input changed

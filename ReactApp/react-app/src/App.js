@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import './App.css';
 import './web-components/autoCompleteTextInput.js'
 import countries from "./ressources/countries.json";
 
 function App() {
-  // Use hook to manage state
+  const appRef = useRef(null);
   const [currentInput, setCurrentInput] = useState('default');
 
   function onInputUpdate(e) {
@@ -12,8 +12,19 @@ function App() {
     setCurrentInput(e.detail.message);
   }
 
+  useEffect(() => {
+    const handleInputUpdateEvent = (event) => {
+      if (appRef.current && !appRef.current.contains(event.target)) {
+        onInputUpdate(event)
+      }
+    }
+
+    document.addEventListener("current-input-value", handleInputUpdateEvent)
+    return () => document.removeEventListener("current-input-value", handleInputUpdateEvent)
+  }, [appRef])
+
   return (
-    <div className="App">
+    <div ref={appRef} className="App">
       <header className="App-header">
         <div>
           <h1>React App</h1>
@@ -23,8 +34,7 @@ function App() {
           <div>
               <my-auto-complete-text-input id="auto-complete-ti"
                                           title="Country Search:"
-                                          suggestions={JSON.stringify(countries)}
-                                          current-input-value={onInputUpdate}>
+                                          suggestions={JSON.stringify(countries)}>
               </my-auto-complete-text-input>
           </div>
           <p>Currently selected country:</p>

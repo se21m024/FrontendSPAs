@@ -50,6 +50,7 @@ class AutoCompleteTextInput extends LitElement {
             }
         });
 
+        this.dispatchEvent(event);
         document.dispatchEvent(event);
     }
 
