@@ -97,6 +97,12 @@ class AutoCompleteTextInput extends LitElement {
         this.shadowRoot
             .getElementById("auto-complete-text-input")
             .value = suggestion;
+
+        // Hide suggestion box
+        this.shadowRoot
+            .getElementById("auto-complete-suggestion")
+            .style
+            .visibility = 'hidden';
     }
 }
 

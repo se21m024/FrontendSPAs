@@ -5,9 +5,16 @@
         <p>Student: se21m024 @Technikum Wien</p>
         <!-- Nest this div because only one top level div is allowed -->
         <div>
-            <!-- Bind title and suggestedCountries -->
-            <my-auto-complete-text-input id="auto-complete-ti" :title=title :suggestions=suggestedCountries></my-auto-complete-text-input>
+            <!-- Bind to title and suggestedCountries data via ':' -->
+            <!-- Bind to current-input-value event via '@' -->
+            <my-auto-complete-text-input id="auto-complete-ti"
+                                         :title=title
+                                         :suggestions=suggestedCountries
+                                         @current-input-value="onInputUpdate">
+            </my-auto-complete-text-input>
         </div>
+        <p>Currently selected country:</p>
+        <p>{{ currentInput }}</p>
     </div>
 </template>
 
@@ -19,12 +26,18 @@
         name: 'Home',
         props: {
             msg: String
-            //suggestedCountries: String
         },
         data: () => ({
-            title: 'Country Search',
-            suggestedCountries: JSON.stringify(countries)
-        })
+            title: 'Country Search:',
+            suggestedCountries: JSON.stringify(countries),
+            currentInput: ''
+        }),
+        methods: {
+            onInputUpdate(event) {
+                console.log('Vue app: received event from web component: ' + event.detail.message);
+                this.currentInput = event.detail.message;
+            }
+        }
     };
 </script>
 

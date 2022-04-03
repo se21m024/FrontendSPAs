@@ -1,9 +1,9 @@
 import { LitElement, html } from 'lit-element/lit-element.js';
 
 class AutoCompleteTextInput extends LitElement {
-  
+
     render() {
-    return html`
+        return html`
         <div>
             <label>${this.title}</label><br>
             <input type="text" 
@@ -29,7 +29,7 @@ class AutoCompleteTextInput extends LitElement {
     }
 
     static get properties() {
-        return{
+        return {
             title: { type: String },
             suggestions: { type: String }
         };
@@ -46,17 +46,19 @@ class AutoCompleteTextInput extends LitElement {
 
         let event = new CustomEvent("current-input-value", {
             detail: {
-              message: currentValue}});
-      
+                message: currentValue
+            }
+        });
+
         this.dispatchEvent(event);
     }
 
     // Text of the text input changed
     onInputTextChanged(text) {
         console.log("Text changed to: " + text);
-        
+
         // Hide suggestion box
-        if(text.length < 1) {
+        if (text.length < 1) {
             this.shadowRoot
                 .getElementById("auto-complete-suggestion")
                 .style
@@ -65,13 +67,13 @@ class AutoCompleteTextInput extends LitElement {
         }
 
         // Search for match
-        let suggestion = JSON.parse(this.suggestions).find(x => 
+        let suggestion = JSON.parse(this.suggestions).find(x =>
             x.toLowerCase().startsWith(text.toLowerCase()));
 
         console.log("New suggestion: " + suggestion);
 
         // Hide suggestion box if no match found
-        if(suggestion == undefined || suggestion.length < 1) {
+        if (suggestion == undefined || suggestion.length < 1) {
             this.shadowRoot
                 .getElementById("auto-complete-suggestion")
                 .style
@@ -81,8 +83,8 @@ class AutoCompleteTextInput extends LitElement {
 
         // Show suggestion box if match found
         this.shadowRoot
-                .getElementById("auto-complete-suggestion")
-                .innerHTML = suggestion;
+            .getElementById("auto-complete-suggestion")
+            .innerHTML = suggestion;
 
         this.shadowRoot
             .getElementById("auto-complete-suggestion")
@@ -95,8 +97,14 @@ class AutoCompleteTextInput extends LitElement {
         this.shadowRoot
             .getElementById("auto-complete-text-input")
             .value = suggestion;
+
+        // Hide suggestion box
+        this.shadowRoot
+            .getElementById("auto-complete-suggestion")
+            .style
+            .visibility = 'hidden';
     }
 }
 
 // Component name
-customElements.define('my-auto-complete-text-input', AutoCompleteTextInput); 
+customElements.define('my-auto-complete-text-input', AutoCompleteTextInput);
