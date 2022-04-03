@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <Home msg="Vue App" suggestedCountries='["Poech", "Hetzen", "Hietz"]' />
+        <Home msg="Vue App"/>
     </div>
 </template>
 
