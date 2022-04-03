@@ -3,7 +3,7 @@
     
     <head>
         <title>Web Component Demo</title>
-        <script type="module" src="./AutoCompleteTextInput.js"></script>
+        <script type="module" src="./autoCompleteTextInput.js"></script>
     </head>
 
     <body>
@@ -15,7 +15,7 @@
     <script>
         fetch("./countries.json")
         .then(response => {
-        return response.json();
+        return response.text();
         })
         .then(jsondata => document.getElementById("auto-complete-ti").suggestions = jsondata);
     </script>

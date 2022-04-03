@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "VueApp", "VueApp\VueApp.njsproj", "{7E4D0EAE-2516-4CB8-9A76-FC13BF5963E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E4D0EAE-2516-4CB8-9A76-FC13BF5963E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E4D0EAE-2516-4CB8-9A76-FC13BF5963E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E4D0EAE-2516-4CB8-9A76-FC13BF5963E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E4D0EAE-2516-4CB8-9A76-FC13BF5963E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4249913F-ABA8-41EF-817F-3040594B289B}
+	EndGlobalSection
+EndGlobal
