@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <h1>{{ msg }}</h1>
-        <p>This Vue app with includs an auto-complete text input web component.</p>
+        <p>This Vue app with includes an auto-complete text input web component.</p>
         <p>Student: se21m024 @Technikum Wien</p>
         <!-- Nest this div because only one top level div is allowed -->
         <div>
