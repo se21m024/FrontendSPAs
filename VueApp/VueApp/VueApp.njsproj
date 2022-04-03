@@ -37,7 +37,6 @@
     <Content Include="src\App.vue" />
     <Content Include="src\components\Home.vue" />
     <Content Include="package.json" />
-    <Content Include="README.md" />
     <Content Include="web_components\autoCompleteTextInput.js">
       <Publish>True</Publish>
     </Content>
